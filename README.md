@@ -40,6 +40,10 @@ engine and fuel consumption data using **Elastic Net Regression**.
 -   Simple HTML form for user inputs
 -   Displays prediction or error message
 
+## Images
+
+[!ElasticRegression](Images/image.png)
+
 ## ▶️ How to Run
 
 1.  Train the model: `bash     python model_train.py`
