@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Emissions Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --background: #f8f9fa;
+            --card: #ffffff;
+            --text: #333333;
+            --success: #4caf50;
+            --error: #f44336;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 400;
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+        }
+        
+        input[type="number"]::placeholder {
+            color: #aaa;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+            display: block;
+        }
+        
+        .error {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+            display: block;
+        }
+        
+        .info-text {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CO₂ Emissions Predictor</h2>
+        <form action="/predict" method="post" id="predictionForm">
+            <div class="form-group">
+                <label for="engine_size">Engine Size (L)</label>
+                <input type="number" step="any" name="engine_size" id="engine_size" placeholder="e.g. 2.0" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cylinders">Number of Cylinders</label>
+                <input type="number" step="any" name="cylinders" id="cylinders" placeholder="e.g. 4" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="city">City Fuel Consumption (L/100 km)</label>
+                <input type="number" step="any" name="city" id="city" placeholder="e.g. 9.5" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="highway">Highway Fuel Consumption (L/100 km)</label>
+                <input type="number" step="any" name="highway" id="highway" placeholder="e.g. 6.8" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="combined">Combined Fuel Consumption (L/100 km)</label>
+                <input type="number" step="any" name="combined" id="combined" placeholder="e.g. 8.2" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="mpg">Fuel Consumption (mpg)</label>
+                <input type="number" step="any" name="mpg" id="mpg" placeholder="e.g. 28.7" required>
+            </div>
+            
+            <button type="submit" class="btn">Estimate CO₂ Emissions</button>
+        </form>
+        
+        {% if prediction_text %}
+            <div class="result {% if 'Error' in prediction_text %}error{% else %}success{% endif %}">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+        
+        <p class="info-text">
+            This tool estimates CO₂ emissions based on your vehicle's specifications.
+            Results are approximate and for informational purposes only.
+        </p>
+    </div>
+</body>
+</html>
