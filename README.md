@@ -42,7 +42,7 @@ engine and fuel consumption data using **Elastic Net Regression**.
 
 ## Images
 
-[!ElasticRegression](Images/image.png)
+[!ElasticRegression](Images\image.png)
 
 ## ▶️ How to Run
 
